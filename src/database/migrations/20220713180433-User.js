@@ -4,8 +4,8 @@ module.exports = {
    * @param {import('sequelize').QueryInterface} queryInterface 
    * @param {import('sequelize').DataTypes} Sequelize 
    */
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createDatabase('Users', {
+   up: async(queryInterface, Sequelize) => {
+    await queryInterface.createTable('Users', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -25,7 +25,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(255),
       },
-      password: {
+      image: {
         allowNull: false,
         type: Sequelize.STRING(255),
       },
