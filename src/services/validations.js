@@ -19,6 +19,14 @@ const validations = {
     const userObject = await schema.validateAsync(unknown);
     return userObject;
   },
+  async newCategory(unknown) {
+    const schema = Joi.object({
+      name: Joi.string().required(),
+    });
+
+    const categoryObject = await schema.validateAsync(unknown);
+    return categoryObject;
+  },
   async password(signedUserPassword, userToValidate) {
     const isPasswordValid = signedUserPassword.password === userToValidate.password;
     if (!isPasswordValid) {
