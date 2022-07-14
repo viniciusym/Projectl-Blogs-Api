@@ -4,6 +4,7 @@ const errorsStatus = {
   ValidationError: 400,
   UserAlreadyExistsError: 409,
   JsonWebTokenError: 401,
+  UserNotFound: 404,
 };
 
 const errorsMessages = {

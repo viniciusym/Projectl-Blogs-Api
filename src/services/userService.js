@@ -1,6 +1,7 @@
 const { User } = require('../database/models');
 const InvalidFieldsError = require('../errors/InvalidFieldsError');
 const UserAlreadyExistsError = require('../errors/UserAlreadyExistsError');
+const UserNotFound = require('../errors/UserNotFound');
 
 const userService = {
   async getUserByEmail(email) {
@@ -8,6 +9,17 @@ const userService = {
       where: { email },
     });
     return userByEmail;
+  },
+  async getById(id) {
+    const user = await User.findByPk(id, {
+      attributes: {
+        exclude: ['password'],
+      },
+    });
+    if (!user) {
+      throw new UserNotFound('User does not exist');
+    }
+    return user;
   },
   async getAll() {
     const users = await User.findAll({
@@ -17,7 +29,7 @@ const userService = {
     });
     return users;
   },
-  async exists(email) {
+  async existsByEmail(email) {
     const userByEmail = await User.findOne({
       where: { email },
       attributes: ['email'],
