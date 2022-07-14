@@ -9,6 +9,14 @@ const userService = {
     });
     return userByEmail;
   },
+  async getAll() {
+    const users = await User.findAll({
+      attributes: {
+        exclude: ['password'],
+      },
+    });
+    return users;
+  },
   async exists(email) {
     const userByEmail = await User.findOne({
       where: { email },
