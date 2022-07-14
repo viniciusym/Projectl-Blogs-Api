@@ -14,14 +14,14 @@ const attributes = {
   },
 };
 /** @param {import('sequelize').Sequelize} sequelize */
-const category = (sequelize) => {
-  const category = sequelize.define('Category', attributes,
+const Category = (sequelize) => {
+  const Category = sequelize.define('Category', attributes,
   { 
     timestamps: false,
     tableName: 'Categories'
   });
 
-  return category;
+  return Category;
 }
 
-module.exports = category;
+module.exports = Category;
