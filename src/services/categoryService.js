@@ -6,6 +6,11 @@ const categoryService = {
 
     return createResponse;
   },
+  async getAll() {
+    const categories = await Category.findAll();
+
+    return categories;
+  },
 };
 
 module.exports = categoryService;
