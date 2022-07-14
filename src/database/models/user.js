@@ -22,7 +22,7 @@ const attributes = {
     type: DataTypes.STRING(255),
   },
   image: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.STRING(255),
   },
 }
