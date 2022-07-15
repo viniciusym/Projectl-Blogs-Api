@@ -60,6 +60,14 @@ const postService = {
     }
     return true;
   },
+  async update(changes, id) {
+    await BlogPost.update(changes, { where: { id } });
+  },
+  async getUserId(postId) {
+    const { userId } = await BlogPost.findByPk(postId, { attributes: ['userId'] });
+
+    return userId;
+  },
 };
 
 module.exports = postService;

@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const InvalidFieldsError = require('../errors/InvalidFieldsError');
 const MissingFieldsError = require('../errors/MissingFieldsError');
+const UnauthorizedUserError = require('../errors/UnauthorizedUserError');
 
 const validations = {
   async loginPayload(payload) {
@@ -50,6 +51,11 @@ const validations = {
     });
 
     await schema.validateAsync(categories);
+  },
+  async userId(userIdFromPost, userIdFromToken) {
+    if (Number(userIdFromPost) !== Number(userIdFromToken)) {
+      throw new UnauthorizedUserError('Unauthorized user');
+    }
   },
 };
 

@@ -7,6 +7,7 @@ const errorsStatus = {
   UserNotFound: 404,
   CategoryIdsNotFoundError: 400,
   PostNotFoundError: 404,
+  UnauthorizedUserError: 401,
 };
 
 const errorsMessages = {

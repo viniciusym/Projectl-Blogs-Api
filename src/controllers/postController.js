@@ -27,6 +27,17 @@ const postController = {
 
     res.status(200).json(post);
   },
+  async update(req, res) {
+    const { id } = req.params;
+    await validations.newPost(req.body);
+    const postUserId = await postService.getUserId(id);
+    const requestingUserId = await userService.getUserIdByEmail(req.token.data.userEmail);
+    await validations.userId(requestingUserId, postUserId);
+    await postService.update(req.body, id);
+    const updatedPost = await postService.getById(id);
+
+    res.status(200).json(updatedPost);
+  },
 };
 
 module.exports = postController;
