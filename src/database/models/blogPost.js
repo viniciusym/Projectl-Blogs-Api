@@ -3,29 +3,29 @@ const { DataTypes } = require('sequelize');
 /** @type {import('sequelize').ModelAttributes} */
 const attributes = {
   id: {
-    allowNull: false,
+    allowNull: true,
     autoIncrement: true,
     primaryKey: true,
     type: DataTypes.INTEGER,
   },
   title: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.STRING(255),
   },
   content: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.STRING(255),
   },
   published: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.DATE(),
   },
   updated: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.DATE(),
   },
   userId: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.INTEGER,
     references: {
       model: 'User',
