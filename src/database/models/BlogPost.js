@@ -28,7 +28,7 @@ const attributes = {
     allowNull: false,
     type: DataTypes.INTEGER,
     references: {
-      model: 'Users',
+      model: 'User',
       key: 'id',
     },
   }
@@ -43,8 +43,9 @@ const BlogPost = (sequelize) => {
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User, { foreignKey: 'id', as: 'user'});
   }
-
+  
   return BlogPost;
 }
+
 
 module.exports = BlogPost;
