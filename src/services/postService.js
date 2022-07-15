@@ -1,4 +1,5 @@
 const { BlogPost, User, Category, sequelize } = require('../database/models');
+const PostNotFoundError = require('../errors/PostNotFoundError');
 
 const postService = {
   async add(newPost) {
@@ -33,6 +34,31 @@ const postService = {
     });
 
     return posts;
+  },
+  async getById(id) {
+    const post = BlogPost.findByPk(id, {
+      include: [
+        { 
+          model: User,
+          as: 'user',
+          attributes: { exclude: 'password' },
+        },
+        { 
+          model: Category,
+          as: 'categories',
+          through: { attributes: [] },
+        },
+      ],
+    });
+
+    return post;
+  },
+  async exists(id) {
+    const post = await BlogPost.findByPk(id);
+    if (!post) {
+      throw new PostNotFoundError('Post does not exist');
+    }
+    return true;
   },
 };
 

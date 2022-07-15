@@ -20,6 +20,13 @@ const postController = {
 
     res.status(200).json(posts);
   },
+  async getById(req, res) {
+    const { id } = req.params;
+    await postService.exists(id);
+    const post = await postService.getById(id);
+
+    res.status(200).json(post);
+  },
 };
 
 module.exports = postController;

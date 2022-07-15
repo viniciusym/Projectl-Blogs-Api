@@ -6,6 +6,7 @@ const errorsStatus = {
   JsonWebTokenError: 401,
   UserNotFound: 404,
   CategoryIdsNotFoundError: 400,
+  PostNotFoundError: 404,
 };
 
 const errorsMessages = {
