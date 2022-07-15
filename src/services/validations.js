@@ -33,6 +33,24 @@ const validations = {
       throw new InvalidFieldsError('Invalid fields');
     }
   },
+  async newPost(post) {
+    if (!post.title || !post.content) {
+      throw new MissingFieldsError('Some required fields are missing');
+    }
+  },
+  async newPostCategories(categories) {
+    const joiErrorMessage = '"categoryIds" not found';
+    const schema = Joi.object({
+      categoryIds: Joi.array().min(1).required()
+      .messages({
+        'array.base': joiErrorMessage,
+        'array.min': joiErrorMessage,
+        'any.required': joiErrorMessage,
+      }),
+    });
+
+    await schema.validateAsync(categories);
+  },
 };
 
 module.exports = validations;

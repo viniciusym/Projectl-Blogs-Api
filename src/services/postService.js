@@ -14,7 +14,6 @@ const postService = {
 
       postResponse = createResponse;
     });
-    console.log(1);
     return postResponse;
   },
 };

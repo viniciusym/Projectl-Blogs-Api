@@ -5,7 +5,8 @@ const validateToken = async (req, res, next) => {
     return res.status(401).json({ message: 'Token not found' });
   }
   const token = req.headers.authorization;
-  await authService.validateToken(token);
+  const decodedToken = await authService.validateToken(token);
+  req.token = decodedToken;
   next();
 };
 

@@ -5,6 +5,7 @@ const errorsStatus = {
   UserAlreadyExistsError: 409,
   JsonWebTokenError: 401,
   UserNotFound: 404,
+  CategoryIdsNotFoundError: 400,
 };
 
 const errorsMessages = {
