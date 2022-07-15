@@ -22,7 +22,6 @@ const postController = {
   },
   async getById(req, res) {
     const { id } = req.params;
-    await postService.exists(id);
     const post = await postService.getById(id);
 
     res.status(200).json(post);
@@ -34,6 +33,12 @@ const postController = {
     const updatedPost = await postService.getById(id);
 
     res.status(200).json(updatedPost);
+  },
+  async delete(req, res) {
+    const { id } = req.params;
+    await postService.delete(id);
+
+    res.sendStatus(204);
   },
 };
 

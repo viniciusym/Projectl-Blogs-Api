@@ -68,6 +68,9 @@ const postService = {
 
     return userId;
   },
+  async delete(postId) {
+    await BlogPost.destroy({ where: { id: postId } });
+  },
 };
 
 module.exports = postService;
