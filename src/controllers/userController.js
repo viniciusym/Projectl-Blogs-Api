@@ -22,6 +22,12 @@ const userController = {
     
     res.status(200).json(user);
   },
+  async delete(req, res) {
+    const { userEmail } = req.token.data;
+    await userService.deleteByEmail(userEmail);
+
+    res.sendStatus(204);
+  },
 };
 
 module.exports = userController;

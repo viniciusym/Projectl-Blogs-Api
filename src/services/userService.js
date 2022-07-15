@@ -58,6 +58,9 @@ const userService = {
   async add(newUser) {
     await User.create(newUser);
   },
+  async deleteByEmail(email) {
+    await User.destroy({ where: { email } });
+  },
 };
 
 module.exports = userService;

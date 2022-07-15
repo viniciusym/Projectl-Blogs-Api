@@ -33,6 +33,8 @@ const attributes = {
       model: 'User',
       key: 'id',
     },
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
   }
 };
 /** @param {import('sequelize').Sequelize} sequelize */

@@ -4,6 +4,7 @@ const validateToken = require('../middleware/validateToken');
 
 const userRoute = Router();
 
+userRoute.delete('/me', validateToken, userController.delete);
 userRoute.get('/:id', validateToken, userController.getById);
 userRoute.get('/', validateToken, userController.getAll);
 userRoute.post('/', userController.add);
