@@ -19,10 +19,12 @@ const attributes = {
   published: {
     allowNull: true,
     type: DataTypes.DATE(),
+    defaultValue: new Date(),
   },
   updated: {
     allowNull: true,
     type: DataTypes.DATE(),
+    defaultValue: new Date(),
   },
   userId: {
     allowNull: true,

@@ -1,12 +1,21 @@
-const { BlogPost, Category } = require('../database/models');
+const { BlogPost, sequelize } = require('../database/models');
 
 const postService = {
   async add(newPost) {
     const { categoryIds, ...post } = newPost;
-    const createResponse = await BlogPost.create(post);
-    const i = await createResponse.setCategories(categoryIds);
+    let postResponse;
+    await sequelize.transaction(async (newPostTransaction) => {
+      const createResponse = await BlogPost.create(post, {
+        transaction: newPostTransaction,
+      });
+      await createResponse.addCategories(categoryIds, {
+        transaction: newPostTransaction,
+      });
 
-    return createResponse;
+      postResponse = createResponse;
+    });
+    console.log(1);
+    return postResponse;
   },
 };
 
