@@ -30,14 +30,14 @@ const validations = {
   },
   async password(signedUserPassword, userToValidate) {
     const isPasswordValid = signedUserPassword.password === userToValidate.password;
-    if (!isPasswordValid) {
-      throw new InvalidFieldsError('Invalid fields');
-    }
+    if (isPasswordValid) return;
+  
+    throw new InvalidFieldsError('Invalid fields');
   },
   async newPost(post) {
-    if (!post.title || !post.content) {
-      throw new MissingFieldsError('Some required fields are missing');
-    }
+    if (post.title || post.content) return;
+  
+    throw new MissingFieldsError('Some required fields are missing');
   },
   async newPostCategories(categories) {
     const joiErrorMessage = '"categoryIds" not found';
@@ -53,9 +53,9 @@ const validations = {
     await schema.validateAsync(categories);
   },
   async userId(userIdFromPost, userIdFromToken) {
-    if (Number(userIdFromPost) !== Number(userIdFromToken)) {
-      throw new UnauthorizedUserError('Unauthorized user');
-    }
+    if (Number(userIdFromPost) === Number(userIdFromToken)) return;
+
+    throw new UnauthorizedUserError('Unauthorized user');
   },
 };
 
