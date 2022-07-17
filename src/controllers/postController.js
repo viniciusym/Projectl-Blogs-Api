@@ -40,6 +40,12 @@ const postController = {
 
     res.sendStatus(204);
   },
+  async getBySearchTerm(req, res) {
+    const { q } = req.query;
+    const posts = await postService.getBySearchTerm(q);
+
+    res.status(200).json(posts);
+  },
 };
 
 module.exports = postController;

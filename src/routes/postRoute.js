@@ -7,6 +7,8 @@ const validateUserPermission = require('../middleware/validateUserPermission');
 const postRoute = Router();
 
 postRoute
+  .get('/search', validateToken, postController.getBySearchTerm);
+postRoute
   .post('/', validateToken, postController.add);
 postRoute
   .put('/:id', validateToken, validateUserPermission, postController.update);

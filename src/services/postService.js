@@ -1,5 +1,19 @@
+const { Op } = require('sequelize');
 const { BlogPost, User, Category, sequelize } = require('../database/models');
 const PostNotFoundError = require('../errors/PostNotFoundError');
+
+const UserAndCategoriesInclude = [
+  {
+    model: User,
+    as: 'user',
+    attributes: { exclude: 'password' },
+  },
+  {
+    model: Category,
+    as: 'categories',
+    through: { attributes: [] },
+  },
+];
 
 const postService = {
   async add(newPost) {
@@ -19,36 +33,14 @@ const postService = {
   },
   async getAll() {
     const posts = BlogPost.findAll({
-      include: [
-        { 
-          model: User,
-          as: 'user',
-          attributes: { exclude: 'password' },
-        },
-        { 
-          model: Category,
-          as: 'categories',
-          through: { attributes: [] },
-        },
-      ],
+      include: UserAndCategoriesInclude,
     });
 
     return posts;
   },
   async getById(id) {
     const post = BlogPost.findByPk(id, {
-      include: [
-        { 
-          model: User,
-          as: 'user',
-          attributes: { exclude: 'password' },
-        },
-        { 
-          model: Category,
-          as: 'categories',
-          through: { attributes: [] },
-        },
-      ],
+      include: UserAndCategoriesInclude,
     });
 
     return post;
@@ -70,6 +62,24 @@ const postService = {
   },
   async delete(postId) {
     await BlogPost.destroy({ where: { id: postId } });
+  },
+  async getBySearchTerm(searchTerm) {
+    const titleCondition = {
+      title: 
+        { [Op.substring]: searchTerm },
+    };
+
+    const contentCondition = {
+      content:
+        { [Op.substring]: searchTerm },
+    };
+
+    const posts = await BlogPost.findAll({
+      where: { [Op.or]: [titleCondition, contentCondition] },
+      include: UserAndCategoriesInclude,
+    });
+
+    return posts;
   },
 };
 
