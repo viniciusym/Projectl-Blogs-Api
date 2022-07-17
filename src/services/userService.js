@@ -10,14 +10,6 @@ const userService = {
     });
     return userByEmail;
   },
-  async getUserIdByEmail(email) {
-    const { id } = await User.findOne({
-      raw: true,
-      where: { email },
-      attributes: ['id'],
-    });
-    return id;
-  },
   async getById(id) {
     const user = await User.findByPk(id, {
       attributes: {

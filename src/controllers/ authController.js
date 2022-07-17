@@ -9,7 +9,7 @@ const authController = {
     await userService.existsByEmail(email);
     const user = await userService.getUserByEmail(email);
     await validations.password(user.password, req.body.password);
-    const token = await authService.generateToken(email);
+    const token = await authService.generateToken(user.email, user.id);
     res.status(200).json({ token });
   },
 };
